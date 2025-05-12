@@ -1,202 +1,102 @@
-#Hybrid Functional Link Neural Network for Early Detection of Chronic Diseases
-This repository contains the implementation of a hybrid machine learning model that combines Functional Link Artificial Neural Networks (FLANN) with a shallow neural network to predict chronic diseases such as Heart Disease and Chronic Kidney Disease (CKD) using structured tabular data.
-
-The project focuses on evaluating different FLANN expansion functions (Legendre, Trigonometric, Chebyshev, Fourier, and Power series) to determine the best-performing expansion for medical diagnosis. The final hybrid model utilizes the Legendre expansion function for optimal accuracy.
-
-📌 Table of Contents
-
-Overview
-
-Objectives
-
-Datasets Used
-
-Technologies and Methods
-
-FLANN Variants Compared
-
-Hybrid Model Architecture
-
-Model Evaluation Metrics
-
-Project Results
-
-Folder Structure
-
-How to Run
-
-Future Scope
-
-References
+# Disease Prediction using FLANN & Hybrid Neural Networks
+A machine learning project focused on early detection of chronic diseases (Heart Disease and Chronic Kidney Disease) using Functional Link Artificial Neural Networks (FLANN) and Hybrid Neural Network architectures. This work compares various FLANN expansions and introduces hybrid models with improved predictive performance.
 
 📖 Overview
+This project implements and compares:
 
-This project aims to build lightweight, accurate, and interpretable models for early-stage disease detection using only tabular clinical data. It compares multiple FLANN variants and implements hybrid architectures to improve performance for heart and kidney disease datasets.
+Pure FLANN models (Trigonometric, Legendre, Chebyshev, etc.)
+
+Hybrid FLANN models with a single hidden layer and functional expansions
+
+Datasets used: Heart Disease & Chronic Kidney Disease
+
+Goal: Improve early disease detection through shallow but expressive neural architectures
 
 🎯 Objectives
+Evaluate performance of multiple FLANN expansions on medical tabular data.
 
-Evaluate and compare the performance of various FLANN variants.
+Develop hybrid models that combine the best FLANN with a neural layer.
 
-Identify the most suitable expansion function for disease prediction.
+Compare models using metrics like Accuracy, F1-Score, and ROC AUC.
 
-Build hybrid models using the best FLANN variant with a single hidden layer.
+Reduce overfitting while maintaining computational efficiency.
 
-Analyze results through confusion matrix, ROC curves, loss curves, and accuracy metrics.
+🧠 Model Architectures
+🔹 Pure FLANN
+Functional expansions applied directly to input features without hidden layers.
 
-Apply the hybrid model to both Heart Disease and CKD datasets.
+🔹 Hybrid FLANN (Proposed)
+Input → Legendre Expansion → Hidden Layer (Leaky ReLU + Dropout) → Output (Sigmoid)
 
-🧠 Datasets Used
+🖼️ See: /images/hybrid_legendre_architecture.png
 
-Heart Disease Dataset
+🧪 Datasets
+Heart Disease Dataset: ~100,000+ rows (balanced & preprocessed)
 
-Size: ~300,000 samples (synthetically scaled)
+Chronic Kidney Disease Dataset: Expanded to 300,000 rows from curated data
 
-Features: age, sex, blood pressure, cholesterol, etc.
+All datasets use normalized, numeric values only.
 
-Target: 0 (no disease), 1 (disease)
+⚙️ Preprocessing
+Standardization: z = (x - μ) / σ
 
-Chronic Kidney Disease Dataset
+Train-Test Split: 60–40 or 80–20 (manual shuffling)
 
-Size: ~300,000 samples (balanced and preprocessed)
+Label encoding: 'target' → 0 (no disease), 1 (disease)
 
-Features: 15 key clinical indicators + 3 custom symptoms
+🔢 Expansion Techniques Used
+Trigonometric Expansion (sin, cos terms)
 
-Target: 0 (no disease), 1 (disease)
+Legendre Polynomial Expansion
 
-🧪 Technologies and Methods
-
-Python (NumPy, Pandas, Matplotlib, Seaborn)
-
-Manual implementation of Neural Networks (no TensorFlow/PyTorch)
-
-Functional Expansion: Legendre, Trigonometric, Chebyshev, Fourier
-
-Optimization: Mini-batch Gradient Descent with L2 Regularization
-
-Activation Functions: Leaky ReLU, Sigmoid
-
-Dropout: 35% for hidden layer
-
-ROC Curve, Confusion Matrix, F1-score, Precision, Recall
-
-🧮 FLANN Variants Compared
-
-Trigonometric FLANN (Order 2 and 3)
-
-Legendre FLANN (Order 2 and 3)
-
-Chebyshev FLANN (Order 2 and 3)
-
-Fourier Series FLANN
-
-Power Series FLANN
-
-The Legendre FLANN showed the most stable and generalizable results across both datasets.
-
-🧱 Hybrid Model Architecture
-
-Functional Expansion (Legendre Order 2)
-→ Fully Connected Hidden Layer (Leaky ReLU + Dropout)
-→ Output Layer (Sigmoid)
-
-Features:
-
-Weight regularization (L2)
-
-Dropout during training
-
-Adaptive learning using gradient descent
+Chebyshev Polynomial Expansion
 
 📊 Evaluation Metrics
-
 Accuracy
 
 Precision
 
-Recall (Sensitivity)
+Recall
 
-F1 Score
+F1-Score
 
-ROC-AUC
+Confusion Matrix
 
-Loss Curves (Train vs Test)
+ROC Curve / AUC
 
-Accuracy Curves (Train vs Test)
+📈 Results (Hybrid Legendre Example)
+Accuracy: 98.75%
 
-📈 Project Results
+Precision: 0.9837
 
-Heart Disease Hybrid Model
+Recall: 0.9920
 
-Accuracy: 98.7%
+F1 Score: 0.9879
 
-F1 Score: 98.79%
+AUC: > 0.99
 
-ROC-AUC: > 0.99
+📊 See performance graphs in: /images/results_heart_model.png
 
-CKD Hybrid Model
+🌐 Future Scope
+Expand to other diseases (e.g., Diabetes, Liver, Parkinson’s)
 
-Accuracy: 98.76%
+Integrate image-based diseases using CNN+FLANN hybrids
 
-F1 Score: 98.74%
+Build cloud/edge deployable medical apps
 
-ROC-AUC: > 0.99
+Use advanced optimizers like Adam, RMSProp
 
-📁 Folder Structure
-
-├── heart_disease_model/
-│ └── hybrid_legendre_heart.py
-├── kidney_disease_model/
-│ └── hybrid_legendre_kidney.py
-├── data/
-│ ├── heart_disease_dataset.csv
-│ └── chronic_kidney_disease_dataset.csv
-├── images/
-│ ├── flann_architecture.png
-│ ├── hybrid_architecture.png
-│ ├── loss_curves.png
-│ └── roc_curves.png
-├── report/
-│ └── final_report.pdf
-├── presentation/
-│ └── final_presentation.pptx
-└── README.md
-
-▶️ How to Run
-
-Install dependencies
-
-pip install numpy pandas matplotlib seaborn scikit-learn
-
-Clone repository
-
-git clone https://github.com/your-username/hybrid-flann-disease-prediction.git
-cd hybrid-flann-disease-prediction
-
-Run models
-
-python heart_disease_model/hybrid_legendre_heart.py
-python kidney_disease_model/hybrid_legendre_kidney.py
-
-📌 Future Scope
-
-Expand to other diseases like Diabetes, Liver Disease, Parkinson’s.
-
-Integrate image-based models (e.g., CNN for X-ray or MRI).
-
-Deploy as a medical diagnostic web/mobile application.
-
-Real-time monitoring and alerts with live data input.
-
-Optimize for edge devices and cloud deployment.
+📂 Repository Structure
+/
+├── data/ → CSV datasets
+├── images/ → Architectures, graphs, ROC curves
+├── notebooks/ → Jupyter or Python code files
+├── README.md → Project summary
+├── requirements.txt → Python dependencies
+└── main_model.py → Final hybrid model script
 
 📚 References
+A. Mahanta and R. K. Agrawal, “Legendre Neural Network for Function Approximation,” Neurocomputing, vol. 74, no. 16, 2011, doi: 10.1016/j.neucom.2011.05.008.
 
-[1] P. Mitra, M. Mondal, and S. Saha, "Legendre Neural Network for the Early Detection of Chronic Kidney Disease," IEEE Access, 2023.
+P. Kumar and D. K. Lobiyal, “A Soft Computing Based Hybrid Legendre Neural Network Model for Solving Classification Problems,” Procedia Computer Science, vol. 167, 2020, pp. 1980–1989, doi: 10.1016/j.procs.2020.03.219.
 
-[2] P. Mitra, M. Mondal, and S. Saha, "Legendre Neural Network for the Early Detection of Cardiovascular Disease," Springer Nature, 2023.
-
-[3] Xin, Q., et al. “Wavelet Convolution Neural Network for Epilepsy Classification,” IEEE TNSRE, 2022.
-
-[4] Jalodia, N., et al. “DNN Multi-label Classifier for SLA Violation,” IEEE Open Journal, 2021.
-
-[5] Geng, Y., et al. “Prediction Using Multi-Model Fusion Neural Network,” IEEE Access, 2020.
